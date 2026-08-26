@@ -1,0 +1,694 @@
+/* --- HAUTE HORLOGERIE COFFEE ATELIER --- */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Luxury Watch Atelier Palette */
+    --bg-obsidian: #090807;
+    --surface-card: #13110f;
+    --surface-glass: rgba(19, 17, 15, 0.85);
+    
+    --gold: #d4af37;              /* Champagne Gold */
+    --gold-light: #f3e5ab;
+    --gold-glow: rgba(212, 175, 55, 0.2);
+    --platinum: #e2e8f0;
+    --muted: #94a3b8;
+    --dim: #64748b;
+    
+    --border-gold: rgba(212, 175, 55, 0.25);
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    
+    --transition-lux: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Reduced motion / no motion fallback */
+body.no-motion *, 
+body.no-motion ::before, 
+body.no-motion ::after {
+    animation: none !important;
+    transition: all 0.1s ease !important;
+    transform: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold) var(--bg-obsidian);
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-obsidian);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 3px;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--bg-obsidian);
+    color: var(--platinum);
+    line-height: 1.7;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Subtle Atelier Radial Lighting */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: 
+        radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.04) 0%, transparent 60%),
+        radial-gradient(circle at 10% 90%, rgba(212, 175, 55, 0.03) 0%, transparent 50%);
+    z-index: -2;
+    pointer-events: none;
+}
+
+/* Luxury Ambient Glow */
+.atelier-glow {
+    position: fixed;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+    filter: blur(100px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* --- LUXURY CONTAINER --- */
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    background: var(--surface-glass);
+    border: 1px solid var(--border-gold);
+    border-radius: 12px;
+    padding: 50px;
+    backdrop-filter: blur(20px);
+    box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.7),
+        inset 0 0 30px rgba(212, 175, 55, 0.02);
+    position: relative;
+    animation: fadeScale 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+    transform: translateY(15px);
+}
+
+@keyframes fadeScale {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Corner Watchmaker Accents */
+.container::before, .container::after {
+    content: '';
+    position: absolute;
+    width: 12px; height: 12px;
+    border: 1px solid var(--gold);
+    opacity: 0.7;
+}
+.container::before { top: 6px; left: 6px; border-right: none; border-bottom: none; }
+.container::after { bottom: 6px; right: 6px; border-left: none; border-top: none; }
+
+/* --- NAVBAR --- */
+.navbar {
+    background: rgba(9, 8, 7, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-gold);
+    padding: 1.2rem 0;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+}
+
+.navbar .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    animation: none;
+    opacity: 1;
+    transform: none;
+}
+.navbar .container::before, .navbar .container::after { display: none; }
+
+.logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--platinum);
+    letter-spacing: 3px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+}
+
+.logo span {
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    position: relative;
+    padding: 6px 0;
+    transition: var(--transition-lux);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; width: 0; height: 1px;
+    background: var(--gold);
+    transition: var(--transition-lux);
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--gold);
+}
+
+.nav-links a:hover::after, .nav-links a.active::after {
+    width: 100%;
+}
+
+/* Motion Toggle */
+.motion-toggle-btn {
+    background: transparent;
+    border: 1px solid var(--border-gold);
+    color: var(--gold);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: var(--transition-lux);
+}
+.motion-toggle-btn:hover, .motion-toggle-btn.active {
+    background: rgba(212, 175, 55, 0.1);
+    box-shadow: 0 0 10px var(--gold-glow);
+}
+
+/* --- MOBILE MENU --- */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 26px;
+    height: 18px;
+    cursor: pointer;
+    z-index: 1001;
+}
+.menu-toggle .bar {
+    height: 2px;
+    width: 100%;
+    background-color: var(--platinum);
+    transition: var(--transition-lux);
+}
+.menu-toggle.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); background: var(--gold); }
+.menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
+.menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background: var(--gold); }
+
+/* --- HERO ATELIER --- */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 140px 20px 60px;
+    text-align: center;
+}
+
+.hero-container {
+    max-width: 850px;
+}
+
+.hero-subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+
+.hero-container h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+}
+
+.hero-container h1 span {
+    color: var(--gold);
+    font-style: italic;
+}
+
+.hero-container p {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 580px;
+    margin: 0 auto 3rem;
+    font-weight: 300;
+}
+
+.hero-image-wrapper {
+    position: relative;
+    max-width: 620px;
+    margin: 0 auto;
+    border-radius: 12px;
+    padding: 2px;
+    background: linear-gradient(135deg, var(--gold), rgba(212,175,55,0.2));
+    box-shadow: 0 30px 70px rgba(0,0,0,0.8), 0 0 40px rgba(212,175,55,0.15);
+    transition: var(--transition-lux);
+}
+
+.hero-image-wrapper img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    filter: contrast(1.08) brightness(0.95);
+}
+
+.hero-image-wrapper:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 40px 90px rgba(0,0,0,0.9), 0 0 60px rgba(212,175,55,0.25);
+}
+
+/* --- SECTION HEADERS --- */
+.content-section {
+    padding-top: 140px;
+    margin-bottom: 60px;
+}
+
+h2.atelier-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--platinum);
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+}
+
+.atelier-subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    text-align: center;
+    color: var(--gold);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 3.5rem;
+}
+
+.collection-group-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--gold);
+    margin: 45px 0 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.collection-group-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border-gold), transparent);
+}
+
+/* --- HOROLOGY MENU ITEMS (MASTERPIECES) --- */
+.horology-list {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.horology-item {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 22px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: var(--transition-lux);
+    position: relative;
+    overflow: hidden;
+}
+
+.horology-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 3px; height: 100%;
+    background: var(--dim);
+    transition: var(--transition-lux);
+}
+
+.horology-item:hover {
+    border-color: var(--border-gold);
+    background: rgba(212, 175, 55, 0.03);
+    transform: translateX(6px);
+    box-shadow: -5px 0 25px rgba(212, 175, 55, 0.08);
+}
+
+.horology-item:hover::before {
+    background: var(--gold);
+}
+
+.horology-info h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--platinum);
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+    transition: var(--transition-lux);
+}
+
+.horology-item:hover .horology-info h4 {
+    color: var(--gold);
+}
+
+.horology-ref {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--dim);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.horology-price {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    color: var(--gold);
+    font-weight: 500;
+    letter-spacing: 1px;
+    background: rgba(212, 175, 55, 0.08);
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+/* --- BUTTONS --- */
+.btn-lux {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: var(--gold);
+    text-decoration: none;
+    padding: 16px 36px;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: 1px solid var(--gold);
+    cursor: pointer;
+    transition: var(--transition-lux);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.1);
+}
+
+.btn-lux::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212,175,55,0.2), transparent);
+    transition: 0.5s ease;
+}
+
+.btn-lux:hover {
+    background: var(--gold);
+    color: var(--bg-obsidian);
+    box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-lux:hover::before {
+    left: 100%;
+}
+
+/* --- HERITAGE & CONCIERGE PANELS --- */
+.atelier-box {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    padding: 35px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    transition: var(--transition-lux);
+}
+
+.atelier-box:hover {
+    border-color: var(--border-gold);
+}
+
+.atelier-box p {
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-bottom: 15px;
+    font-weight: 300;
+}
+
+.atelier-box p strong {
+    color: var(--gold);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 1px;
+}
+
+.map-container {
+    margin-top: 35px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border-gold);
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 380px;
+    border: 0;
+    display: block;
+    filter: invert(90%) hue-rotate(180deg) contrast(1.1) brightness(0.9);
+}
+
+/* --- FOOTER --- */
+.footer {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: var(--dim);
+    border-top: 1px solid var(--border-subtle);
+    margin-top: 80px;
+    text-transform: uppercase;
+}
+
+.footer span {
+    color: var(--gold);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .container {
+        margin: 20px;
+        padding: 30px;
+    }
+    .hero-container h1 {
+        font-size: 3.2rem;
+    }
+    .menu-toggle {
+        display: flex;
+    }
+    .nav-links {
+        position: absolute;
+        top: 100%; left: 0; width: 100%;
+        background: rgba(9, 8, 7, 0.95);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        gap: 0;
+        padding: 15px 0 25px;
+        border-bottom: 1px solid var(--border-gold);
+        transform: translateY(-120%);
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition-lux);
+    }
+    .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    .nav-links a {
+        padding: 15px 30px;
+        width: 100%;
+        text-align: left;
+    }
+    .nav-links a::after { display: none; }
+    h2.atelier-title { font-size: 2.2rem; }
+}
+
+/* --- LUXURY ANALOG WATCH WIDGET --- */
+.luxury-watch-widget {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 110px;
+    height: 110px;
+    background: rgba(19, 17, 15, 0.9);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(212, 175, 55, 0.25),
+        inset 0 0 15px rgba(212, 175, 55, 0.1);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    transition: var(--transition-lux);
+}
+
+.luxury-watch-widget:hover {
+    transform: scale(1.08);
+    box-shadow: 
+        0 20px 45px rgba(0, 0, 0, 0.9),
+        0 0 30px rgba(212, 175, 55, 0.4),
+        inset 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+.watch-dial {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #1a1714 0%, #0c0b0a 100%);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.watch-center-pin {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    box-shadow: 0 0 4px var(--gold);
+}
+
+.watch-hand {
+    position: absolute;
+    bottom: 50%; left: 50%;
+    transform-origin: bottom center;
+    border-radius: 4px;
+    z-index: 5;
+}
+
+.hour-hand {
+    width: 3px;
+    height: 20px;
+    background: var(--platinum);
+    transform: translate(-50%, 0);
+}
+
+.minute-hand {
+    width: 2px;
+    height: 28px;
+    background: var(--gold-light);
+    transform: translate(-50%, 0);
+}
+
+.second-hand {
+    width: 1px;
+    height: 32px;
+    background: #f43f5e;
+    transform: translate(-50%, 0);
+    z-index: 6;
+}
+
+.watch-markers span {
+    position: absolute;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--gold);
+    font-weight: 700;
+}
+.watch-markers span:nth-child(1) { top: 2px; left: 50%; transform: translateX(-50%); }
+.watch-markers span:nth-child(2) { right: 4px; top: 50%; transform: translateY(-50%); }
+.watch-markers span:nth-child(3) { bottom: 2px; left: 50%; transform: translateX(-50%); }
+.watch-markers span:nth-child(4) { left: 4px; top: 50%; transform: translateY(-50%); }
+
+.watch-brand {
+    position: absolute;
+    bottom: -18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 1px;
+    color: var(--gold);
+    text-transform: uppercase;
+    background: var(--bg-obsidian);
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border-gold);
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .luxury-watch-widget {
+        bottom: 20px;
+        right: 20px;
+        width: 90px;
+        height: 90px;
+    }
+    .watch-dial {
+        width: 66px;
+        height: 66px;
+    }
+    .hour-hand { height: 16px; }
+    .minute-hand { height: 22px; }
+    .second-hand { height: 26px; }
+}
+
