@@ -1,18 +1,65 @@
 document.addEventListener('DOMContentLoaded', () => {
     const mobileMenu = document.getElementById('mobile-menu');
-    const navLinks = document.querySelector('.nav-links');
+    const navLinksContainer = document.querySelector('.nav-links');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const spaSections = document.querySelectorAll('.spa-section');
+    const switchButtons = document.querySelectorAll('.nav-btn-switch');
 
-    if (mobileMenu && navLinks) {
-        mobileMenu.addEventListener('click', () => {
-            mobileMenu.classList.toggle('is-active');
-            navLinks.classList.toggle('active');
+    // Function to switch SPA views
+    function switchView(targetId) {
+        spaSections.forEach(section => {
+            if (section.id === targetId) {
+                section.style.display = 'block';
+                // Trigger reflow for fade animation
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(15px)';
+                setTimeout(() => {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                    section.style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+                }, 10);
+            } else {
+                section.style.display = 'none';
+            }
         });
 
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
+        navLinks.forEach(link => {
+            if (link.getAttribute('data-target') === targetId) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Navbar click handling
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = link.getAttribute('data-target');
+            switchView(target);
+
+            if (mobileMenu && navLinksContainer) {
                 mobileMenu.classList.remove('is-active');
-                navLinks.classList.remove('active');
-            });
+                navLinksContainer.classList.remove('active');
+            }
+        });
+    });
+
+    // In-page buttons to switch view
+    switchButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const target = btn.getAttribute('data-target');
+            switchView(target);
+        });
+    });
+
+    if (mobileMenu && navLinksContainer) {
+        mobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('is-active');
+            navLinksContainer.classList.toggle('active');
         });
     }
 
@@ -80,10 +127,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (modal) {
-        document.querySelectorAll('.horology-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const name = item.getAttribute('data-name');
-                const price = parseInt(item.getAttribute('data-price')) || 0;
+        // Use event delegation for horology items in case of dynamic views
+        document.addEventListener('click', (e) => {
+            const horologyItem = e.target.closest('.horology-item');
+            if (horologyItem) {
+                const name = horologyItem.getAttribute('data-name');
+                const price = parseInt(horologyItem.getAttribute('data-price')) || 0;
                 currentItem = { name, price };
 
                 modalItemName.textContent = name;
@@ -93,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateModalTotal();
 
                 modal.classList.add('active');
-            });
+            }
         });
 
         if (modalClose) {
