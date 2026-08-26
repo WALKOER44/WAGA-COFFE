@@ -54,4 +54,100 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setInterval(updateClock, 1000);
     updateClock();
+
+    // Interactive Order Modal Logic
+    const modal = document.getElementById('order-modal');
+    const modalClose = document.getElementById('modal-close');
+    const modalItemName = document.getElementById('modal-item-name');
+    const modalItemPrice = document.getElementById('modal-item-price');
+    const modalQty = document.getElementById('modal-qty');
+    const modalTotalPrice = document.getElementById('modal-total-price');
+    const modalAddress = document.getElementById('modal-address');
+    const qtyMinus = document.getElementById('qty-minus');
+    const qtyPlus = document.getElementById('qty-plus');
+    const modalSubmitWa = document.getElementById('modal-submit-wa');
+
+    let currentItem = { name: '', price: 0 };
+
+    function formatIDR(amount) {
+        return 'IDR ' + amount.toLocaleString('id-ID');
+    }
+
+    function updateModalTotal() {
+        const qty = parseInt(modalQty.value) || 1;
+        const total = currentItem.price * qty;
+        modalTotalPrice.textContent = formatIDR(total);
+    }
+
+    if (modal) {
+        document.querySelectorAll('.horology-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const name = item.getAttribute('data-name');
+                const price = parseInt(item.getAttribute('data-price')) || 0;
+                currentItem = { name, price };
+
+                modalItemName.textContent = name;
+                modalItemPrice.textContent = formatIDR(price);
+                modalQty.value = 1;
+                modalAddress.value = '';
+                updateModalTotal();
+
+                modal.classList.add('active');
+            });
+        });
+
+        if (modalClose) {
+            modalClose.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+        }
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        if (qtyMinus) {
+            qtyMinus.addEventListener('click', () => {
+                let qty = parseInt(modalQty.value) || 1;
+                if (qty > 1) {
+                    modalQty.value = qty - 1;
+                    updateModalTotal();
+                }
+            });
+        }
+
+        if (qtyPlus) {
+            qtyPlus.addEventListener('click', () => {
+                let qty = parseInt(modalQty.value) || 1;
+                if (qty < 99) {
+                    modalQty.value = qty + 1;
+                    updateModalTotal();
+                }
+            });
+        }
+
+        if (modalQty) {
+            modalQty.addEventListener('input', () => {
+                let qty = parseInt(modalQty.value);
+                if (isNaN(qty) || qty < 1) modalQty.value = 1;
+                updateModalTotal();
+            });
+        }
+
+        if (modalSubmitWa) {
+            modalSubmitWa.addEventListener('click', () => {
+                const qty = parseInt(modalQty.value) || 1;
+                const total = currentItem.price * qty;
+                const address = modalAddress.value.trim() || 'Belum diisi (Ambil di tempat / Radius 1-2km)';
+
+                const message = `Halo WAGA Coffee Atelier, saya ingin memesan:\n\n*Menu:* ${currentItem.name}\n*Jumlah:* ${qty}\n*Total Harga:* ${formatIDR(total)}\n*Alamat Pengiriman:* ${address}\n\nMohon diproses, terima kasih!`;
+                
+                const waUrl = `https://wa.me/62882003160137?text=${encodeURIComponent(message)}`;
+                window.open(waUrl, '_blank');
+                modal.classList.remove('active');
+            });
+        }
+    }
 });

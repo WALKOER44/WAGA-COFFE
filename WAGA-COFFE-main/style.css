@@ -692,3 +692,190 @@ h2.atelier-title {
     .second-hand { height: 26px; }
 }
 
+/* --- DELIVERY NOTICE BANNER --- */
+.delivery-notice-banner {
+    background: rgba(212, 175, 55, 0.08);
+    border: 1px solid var(--border-gold);
+    border-radius: 8px;
+    padding: 14px 20px;
+    margin-bottom: 30px;
+    font-size: 0.9rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.delivery-notice-banner strong {
+    color: var(--gold);
+}
+
+/* --- INTERACTIVE ORDER MODAL --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(9, 8, 7, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-lux);
+    padding: 20px;
+}
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: var(--surface-card);
+    border: 1px solid var(--border-gold);
+    border-radius: 12px;
+    width: 100%;
+    max-width: 460px;
+    padding: 30px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 30px rgba(212,175,55,0.15);
+    transform: scale(0.95);
+    transition: var(--transition-lux);
+    position: relative;
+}
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 15px;
+}
+
+.modal-header h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+}
+
+.modal-close-btn {
+    background: transparent;
+    border: none;
+    color: var(--platinum);
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: var(--transition-lux);
+}
+.modal-close-btn:hover {
+    color: var(--gold);
+}
+
+.modal-body p {
+    color: var(--muted);
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
+.modal-input-group {
+    margin-bottom: 18px;
+}
+
+.modal-input-group label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--platinum);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.qty-control {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border-gold);
+    border-radius: 6px;
+    overflow: hidden;
+    background: rgba(0,0,0,0.3);
+    max-width: 150px;
+}
+
+.qty-control button {
+    background: rgba(212,175,55,0.1);
+    border: none;
+    color: var(--gold);
+    font-size: 1.2rem;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: var(--transition-lux);
+}
+.qty-control button:hover {
+    background: var(--gold);
+    color: var(--bg-obsidian);
+}
+
+.qty-control input {
+    width: 50px;
+    text-align: center;
+    background: transparent;
+    border: none;
+    color: var(--platinum);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+}
+.qty-control input::-webkit-inner-spin-button, 
+.qty-control input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.modal-total-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 12px 18px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-family: 'JetBrains Mono', monospace;
+}
+.modal-total-display span {
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+.modal-total-display strong {
+    color: var(--gold);
+    font-size: 1.1rem;
+}
+
+.modal-input-group textarea {
+    width: 100%;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border-gold);
+    border-radius: 6px;
+    padding: 12px;
+    color: var(--platinum);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem;
+    resize: none;
+}
+.modal-input-group textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 10px var(--gold-glow);
+}
+
+.modal-footer {
+    margin-top: 20px;
+}
+
+/* Make horology items clickable */
+.horology-item {
+    cursor: pointer;
+}
+.horology-item:hover .horology-info h4 {
+    text-decoration: underline;
+}
+
