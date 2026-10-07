@@ -1,5 +1,4 @@
-/* --- HAUTE HORLOGERIE COFFEE ATELIER --- */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+/* --- PIXEL ART RETRO PORTFOLIO --- */
 
 * {
     margin: 0;
@@ -8,154 +7,211 @@
 }
 
 :root {
-    /* Luxury Watch Atelier Palette */
-    --bg-obsidian: #090807;
-    --surface-card: #13110f;
-    --surface-glass: rgba(19, 17, 15, 0.85);
+    --bg-dark: #3a3a3a;
+    --card-bg: #4a4a4a;
+    --accent-yellow: #ffff00;
+    --text-white: #ffffff;
+    --text-muted: #cccccc;
     
-    --gold: #d4af37;              /* Champagne Gold */
-    --gold-light: #f3e5ab;
-    --gold-glow: rgba(212, 175, 55, 0.2);
-    --platinum: #e2e8f0;
-    --muted: #94a3b8;
-    --dim: #64748b;
-    
-    --border-gold: rgba(212, 175, 55, 0.25);
-    --border-subtle: rgba(255, 255, 255, 0.08);
-    
-    --transition-lux: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Reduced motion / no motion fallback */
-body.no-motion *, 
-body.no-motion ::before, 
-body.no-motion ::after {
-    animation: none !important;
-    transition: all 0.1s ease !important;
-    transform: none !important;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    *, ::before, ::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
+    --border-thick: 4px solid #000000;
+    --shadow-pixel: 6px 6px 0px rgba(0, 0, 0, 0.8);
+    --shadow-pixel-hover: 10px 10px 0px rgba(0, 0, 0, 0.8);
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     scrollbar-width: thin;
-    scrollbar-color: var(--gold) var(--bg-obsidian);
+    scrollbar-color: var(--accent-yellow) var(--bg-dark);
 }
 
 ::-webkit-scrollbar {
-    width: 5px;
+    width: 8px;
 }
 ::-webkit-scrollbar-track {
-    background: var(--bg-obsidian);
+    background: var(--bg-dark);
 }
 ::-webkit-scrollbar-thumb {
-    background: var(--gold);
-    border-radius: 3px;
+    background: var(--accent-yellow);
+    border: 2px solid var(--bg-dark);
 }
 
 body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: var(--bg-obsidian);
-    color: var(--platinum);
-    line-height: 1.7;
+    font-family: 'Courier New', monospace;
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    line-height: 1.5;
     overflow-x: hidden;
     position: relative;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
 }
 
-/* Subtle Atelier Radial Lighting */
+/* Grid overlay */
 body::before {
     content: '';
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: 
-        radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.04) 0%, transparent 60%),
-        radial-gradient(circle at 10% 90%, rgba(212, 175, 55, 0.03) 0%, transparent 50%);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+    );
     z-index: -2;
     pointer-events: none;
 }
 
-/* Luxury Ambient Glow */
+/* Floating logo background */
 .atelier-glow {
     position: fixed;
-    width: 600px; height: 600px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
-    filter: blur(100px);
-    z-index: -1;
-    pointer-events: none;
-}
-
-/* --- LUXURY CONTAINER --- */
-.container {
-    max-width: 800px;
-    margin: 50px auto;
-    background: var(--surface-glass);
-    border: 1px solid var(--border-gold);
-    border-radius: 12px;
-    padding: 50px;
-    backdrop-filter: blur(20px);
-    box-shadow: 
-        0 30px 60px rgba(0, 0, 0, 0.7),
-        inset 0 0 30px rgba(212, 175, 55, 0.02);
-    position: relative;
-    animation: fadeScale 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    opacity: 0;
-    transform: translateY(15px);
-}
-
-@keyframes fadeScale {
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Corner Watchmaker Accents */
-.container::before, .container::after {
-    content: '';
-    position: absolute;
-    width: 12px; height: 12px;
-    border: 1px solid var(--gold);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     opacity: 0.7;
+    z-index: -3;
+    pointer-events: none;
+    animation: floatLogo 8s infinite linear;
 }
-.container::before { top: 6px; left: 6px; border-right: none; border-bottom: none; }
-.container::after { bottom: 6px; right: 6px; border-left: none; border-top: none; }
+
+@keyframes floatLogo {
+    0% {
+        transform: translateY(110vh) scale(0.5);
+    }
+    100% {
+        transform: translateY(-10vh) scale(1);
+    }
+}
+
+/* --- CONTAINER --- */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
 
 /* --- NAVBAR --- */
 .navbar {
-    background: rgba(9, 8, 7, 0.85);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border-gold);
-    padding: 1.2rem 0;
+    background: var(--bg-dark);
+    border-bottom: var(--border-thick);
+    padding: 1rem 0;
     position: fixed;
-    top: 0; left: 0; right: 0;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 1000;
+    margin-top: 60px;
 }
 
 .navbar .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    animation: none;
-    opacity: 1;
-    transform: none;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
-.navbar .container::before, .navbar .container::after { display: none; }
 
 .logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-yellow);
+    letter-spacing: 0.2em;
+    border: var(--border-thick);
+    padding: 8px 12px;
+    box-shadow: var(--shadow-pixel);
+}
+
+.logo span {
+    color: var(--text-white);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--text-white);
+    text-decoration: none;
+    font-size: 0.9rem;
+    border: 2px solid transparent;
+    padding: 6px 10px;
+    transition: all 0.1s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    border: 2px solid var(--accent-yellow);
+    color: var(--accent-yellow);
+}
+
+/* --- HERO SECTION --- */
+.hero-section {
+    margin-top: 150px;
+    padding: 60px 20px;
+    background: var(--bg-dark);
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-container {
+    text-align: center;
+    max-width: 900px;
+}
+
+.hero-subtitle {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 1rem;
+}
+
+.hero-section h1 {
+    font-family: 'Courier New', monospace;
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: var(--text-white);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    border-bottom: 2px dashed;
+    border-image: linear-gradient(to right, var(--text-white) 0%, var(--text-white) 50%, var(--accent-yellow) 50%, var(--accent-yellow) 100%) 1;
+    padding-bottom: 1rem;
+}
+
+.hero-section h1 span {
+    color: var(--accent-yellow);
+}
+
+.hero-section p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.hero-image-wrapper {
+    margin: 2rem 0;
+}
+
+.hero-image-wrapper img {
+    max-width: 300px;
+    height: auto;
+    border: var(--border-thick);
+    padding: 10px;
+    background: var(--card-bg);
+    box-shadow: var(--shadow-pixel);
+}
     color: var(--platinum);
     letter-spacing: 3px;
     display: flex;
